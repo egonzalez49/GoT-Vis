@@ -1,4 +1,13 @@
 /* SET UP GLOBALS, FORCES, ZOOMING */
+// let groupsData;
+
+// fetch('./data/network/characters-groups.json')
+//     .then(response => response.json())
+//     .then(json => {
+//         groupsData = json.groups;
+//         console.log(groupsData);
+//     });
+
 let svg = d3.select('#network');
 let container = svg.append('g');
 
@@ -14,7 +23,7 @@ svg.call(
         })
 );
 
-let color = d3.scaleOrdinal(d3.schemeCategory10);
+let color = d3.scaleOrdinal(d3.schemePaired);
 
 let simulation = d3
     .forceSimulation()
@@ -24,11 +33,22 @@ let simulation = d3
 let nodesData;
 
 /* LOAD IN CSV DATA */
-d3.csv('./data/network/got-s1-edges.csv').then(links => {
+// d3.csv('./data/network/got-s1-edges.csv').then(links => {
+Promise.all([
+    d3.csv('./data/network/got-s1-edges.csv'),
+    d3.csv('./data/network/got-s1-nodes.csv')
+]).then(files => {
+    let links = files[0];
+    let nodesFile = files[1];
+
     nodesData = {};
 
     links.forEach(link => {
         createNodes(link);
+    });
+
+    nodesFile.forEach(node => {
+        addHouse(node);
     });
 
     /* CREATE A D3 LIST OF NODES */
@@ -158,7 +178,11 @@ d3.csv('./data/network/got-s1-edges.csv').then(links => {
 function createNode(name) {
     return (
         nodesData[name] ||
-        (nodesData[name] = { id: name, group: getRandomInt(7), neighbors: [] })
+        (nodesData[name] = {
+            id: name,
+            group: '', //determineHouse(name),
+            neighbors: []
+        })
     );
 }
 
@@ -169,10 +193,66 @@ function createNodes(link) {
     targetData.neighbors.push(link.source);
 }
 
+function addHouse(node) {
+    let sourceData = createNode(node.id);
+    sourceData.group = node.house;
+}
+
 /* TEMPORARY GROUPING NUMBER GENERATOR */
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
+
+/* CHARACTER GROUP PREPROCESSING */
+// const house = {
+//     STARK: 'Stark',
+//     TARGARYEN: 'Targaryen',
+//     BARATHEON: 'Baratheon',
+//     LANNISTER: 'Lannister',
+//     NIGHTSWATCH: "Night's Watch",
+//     DOTHRAKI: 'Dothraki',
+//     GREYJOY: 'Greyjoy',
+//     TYRELL: 'Tyrell',
+//     WILDLINGS: 'Wildlings',
+//     MARTELL: 'Martell',
+//     FREY: 'Frey',
+//     TULLY: 'Tully',
+//     WHITEWALKERS: 'Whitewalkers',
+//     MISC: 'Misc'
+// };
+
+// function determineHouse(name) {
+//     let characterHouse = 'OTHER';
+//     let foundHouse = false;
+
+//     for (let i = 0; i < groupsData.length; i++) {
+//         let lcName = name.toLowerCase();
+//         for (let j = 0; j < groupsData[i].characters.length; j++) {
+//             let characterName = groupsData[i].characters[j].toLowerCase();
+//             if (houseContains(lcName, characterName)) {
+//                 foundHouse = true;
+//                 characterHouse = groupsData[i].name.toUpperCase();
+//                 break;
+//             }
+//         }
+
+//         if (foundHouse) {
+//             break;
+//         }
+//     }
+
+//     return house[characterHouse];
+// }
+
+// function houseContains(name, character) {
+//     let nameArray = name.split('_');
+//     let characterArray = character.split(' ');
+
+//     for (let i = 0; i < nameArray.length)
+
+//     console.log(name);
+//     return false;
+// }
 
 /* D3 FORCE NODE DRAGGING */
 function dragStarted(d) {
