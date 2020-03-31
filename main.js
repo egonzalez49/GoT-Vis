@@ -54,22 +54,6 @@ Promise.all([
     /* CREATE A D3 LIST OF NODES */
     let nodes = d3.values(nodesData);
 
-    console.log(nodes);
-    console.log(links);
-
-    simulation.nodes(nodes).on('tick', ticked);
-
-    simulation.force(
-        'link',
-        d3
-            .forceLink(links)
-            .id(d => {
-                return d.id;
-            })
-            .distance(50)
-            .strength(1)
-    );
-
     let link = container
         .append('g')
         .selectAll('line')
@@ -110,6 +94,19 @@ Promise.all([
         .text(d => {
             return d.id;
         });
+
+    simulation.nodes(nodes).on('tick', ticked);
+
+    simulation.force(
+        'link',
+        d3
+            .forceLink(links)
+            .id(d => {
+                return d.id;
+            })
+            .distance(50)
+            .strength(0.5)
+    );
 
     /* HANDLE NODE HOVER */
     node.on('mouseover', d => {
