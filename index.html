@@ -16,10 +16,23 @@
             <div class="network-graph">
                 <svg
                     id="network"
-                    width="900"
+                    width="1200"
                     height="750"
                     style="border: 1px solid #777;"
                 ></svg>
+            </div>
+            <div class="controls">
+                <label for="seasonSelect">Select a Season:</label>
+                <select class="dropdown" id="seasonSelect" onchange="onSeasonChanged()">
+                  <option selected value="s1">Season 1</option>
+                  <option value="s2">Season 2</option>
+                  <option value="s3">Season 3</option>
+                  <option value="s4">Season 4</option>
+                  <option value="s5">Season 5</option>
+                  <option value="s6">Season 6</option>
+                  <option value="s7">Season 7</option>
+                  <option value="s8">Season 8</option>
+                </select>
             </div>
         </div>
     </body>
@@ -39,5 +52,5 @@
         crossorigin="anonymous"
     ></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="./main.js" type="module"></script>
+    <script src="./main.js" type="text/javascript"></script>
 </html>
