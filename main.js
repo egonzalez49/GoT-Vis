@@ -33,8 +33,8 @@ function onSeasonChanged() {
         season = seasonSelected;
         updateChart();
     }
-}
-
+}                                     
+              
 
 let nodesData;
 
