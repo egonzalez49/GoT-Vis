@@ -33,7 +33,13 @@ function onSeasonChanged() {
     }
 }
 
-let cluster = false;
+let cluster = true;
+
+function clusterClick() {
+    cluster = !cluster;
+    console.log(cluster);
+    updateChart();
+}
 
 let nodesData;
 
@@ -120,41 +126,43 @@ function updateChart() {
         let centerScale = d3.scalePoint().padding(0.1).range([0.1, width]);
         centerScale.domain(nodes.map(function(d) { return d.group; }));
 
-        // let simulation = d3
-        //     .forceSimulation()
-        //     .nodes(nodes).on('tick', ticked)
-        //     .force(
-        //         'link',
-        //         d3
-        //             .forceLink(links)
-        //             .id(d => {
-        //                 return d.id;
-        //             })
-        //             .distance(250)
-        //             .strength(0.2)
-        //     )
-        //     .force('charge', d3.forceManyBody().strength(-1000))
-        //     .force('center', d3.forceCenter(widthCenter, heightCenter))
-        //     .force("x", d3.forceX())
-        //     .force("y", d3.forceY())
-        //     .force("collide", d3.forceCollide().radius(6).iterations(2));
+        if (cluster) {
+            const simulation = d3
+                .forceSimulation()
+                .nodes(nodes).on('tick', ticked)
+                .force(
+                    'link',
+                    d3
+                        .forceLink(links)
+                        .id(d => {
+                            return d.id;
+                        })
+                        .distance(250)
+                        .strength(0.2)
+                )
+                .force('charge', d3.forceManyBody().strength(-1000))
+                .force('center', d3.forceCenter(widthCenter, heightCenter))
+                .force("x", d3.forceX())
+                .force("y", d3.forceY())
+                .force("collide", d3.forceCollide().radius(6).iterations(2));
+        } else {
+            const simulation = d3.forceSimulation()
+                .force("link", d3.forceLink().id(function(d) { return d.id; }).strength(0))
+                .force("charge", d3.forceManyBody())
+                .force("y", d3.forceY(height / 2).strength(0.1))
+                .force("center", d3.forceCenter(width / 2, height / 2))
+                .force("x", d3.forceX(d => {
+                    return centerScale(d.group);
+                }).strength(0.95))
+                .force("collide", d3.forceCollide().radius(15).iterations(2));
+            
+            simulation
+                .nodes(nodes)
+                .on("tick", ticked);
 
-        const simulation = d3.forceSimulation()
-            .force("link", d3.forceLink().id(function(d) { return d.id; }).strength(0))
-            .force("charge", d3.forceManyBody())
-            .force("y", d3.forceY(height / 2).strength(0.1))
-            .force("center", d3.forceCenter(width / 2, height / 2))
-            .force("x", d3.forceX(d => {
-                return centerScale(d.group);
-            }).strength(0.95))
-            .force("collide", d3.forceCollide().radius(15).iterations(2));
-        
-        simulation
-            .nodes(nodes)
-            .on("tick", ticked);
-
-        simulation.force("link")
-            .links(links);
+            simulation.force("link")
+                .links(links);
+        }
 
         /* HANDLE NODE HOVER */
         node.on('mouseover', d => {
