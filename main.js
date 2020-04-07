@@ -5,6 +5,9 @@ let container = svg.append('g');
 let width = +svg.attr('width');
 let height = +svg.attr('height');
 
+let widthCenter = width / 2;
+let heightCenter = height / 2;
+
 svg.call(
     d3
         .zoom()
@@ -14,27 +17,23 @@ svg.call(
         })
 );
 
-// let simulation = d3
-//     .forceSimulation()
-//     .force('charge', d3.forceManyBody().strength(-1000))
-//     .force('center', d3.forceCenter(width / 2, height / 2));
+let tooltip = d3.select("body")
+    .append("div")
+    .attr("class", "tooltip");
 
-let color = d3.scaleOrdinal(d3.schemePaired);
-
-
-let season = 's2';
+let season = 's1';
 
 /* SEASON SELECT ONCHANGE */
 function onSeasonChanged() {
     var select = d3.select('#seasonSelect').node();
     let seasonSelected = select.options[select.selectedIndex].value;
-    console.log(seasonSelected);
     if (seasonSelected !== season) {
         season = seasonSelected;
         updateChart();
     }
 }
 
+let cluster = false;
 
 let nodesData;
 
@@ -46,11 +45,6 @@ function updateChart() {
         d3.csv(`./data/network/got-${season}-edges.csv`),
         d3.csv(`./data/network/got-${season}-nodes.csv`)
     ]).then(files => {
-        let simulation = d3
-            .forceSimulation()
-            .force('charge', d3.forceManyBody().strength(-500))
-            .force('center', d3.forceCenter(width / 2, height / 2));
-
         let links = files[0];
         let nodesFile = files[1];
 
@@ -71,6 +65,27 @@ function updateChart() {
 
         /* CREATE A D3 LIST OF NODES */
         let nodes = d3.values(nodesData);
+
+        let color = d3.scaleOrdinal()
+            .domain(nodes)
+            .range(["#003f5c",
+            "#2f4b7c",
+            "#665191",
+            "#a05195",
+            "#d45087",
+            "#f95d6a",
+            "#ff7c43",
+            "#ffa600"]);
+
+        // let groups = d3.nest()
+        //     .key((d) => {
+        //         return d.group;
+        //     })
+        //     .map(nodes);
+
+        // Object.keys(groups).forEach(group => {
+        //     determineCenter(group, groups);
+        // });
         
         let link = container
             .append('g')
@@ -90,49 +105,80 @@ function updateChart() {
             .enter()
             .append('circle')
             .attr('class', 'node')
-            .attr('r', 5)
+            .attr('r', 7)
             .style('fill', d => {
                 return color(d.group);
-            })
-            .call(
-                d3
-                    .drag()
-                    .on('start', dragStarted)
-                    .on('drag', dragged)
-                    .on('end', dragEnded)
-            );
-
-        let label = container
-            .append('g')
-            .selectAll('.label')
-            .data(nodes)
-            .enter()
-            .append('text')
-            .attr('class', 'label')
-            .text(d => {
-                return d.id;
             });
 
-        simulation.nodes(nodes).on('tick', ticked);
+        /* POSITION THE LABEL TOOLTIP */
+        node.on('mousemove', () => {
+            tooltip
+                .style("top", (d3.event.pageY-10) + "px")
+                .style("left", (d3.event.pageX+10) + "px")
+        });
 
-        simulation.force(
-            'link',
-            d3
-                .forceLink(links)
-                .id(d => {
-                    return d.id;
-                })
-                .distance(250)
-                .strength(0.4)
-        );
+        let centerScale = d3.scalePoint().padding(0.1).range([0.1, width]);
+        centerScale.domain(nodes.map(function(d) { return d.group; }));
+
+        // let simulation = d3
+        //     .forceSimulation()
+        //     .nodes(nodes).on('tick', ticked)
+        //     .force(
+        //         'link',
+        //         d3
+        //             .forceLink(links)
+        //             .id(d => {
+        //                 return d.id;
+        //             })
+        //             .distance(250)
+        //             .strength(0.2)
+        //     )
+        //     .force('charge', d3.forceManyBody().strength(-1000))
+        //     .force('center', d3.forceCenter(widthCenter, heightCenter))
+        //     .force("x", d3.forceX())
+        //     .force("y", d3.forceY())
+        //     .force("collide", d3.forceCollide().radius(6).iterations(2));
+
+        const simulation = d3.forceSimulation()
+            .force("link", d3.forceLink().id(function(d) { return d.id; }).strength(0))
+            .force("charge", d3.forceManyBody())
+            .force("y", d3.forceY(height / 2).strength(0.1))
+            .force("center", d3.forceCenter(width / 2, height / 2))
+            .force("x", d3.forceX(d => {
+                return centerScale(d.group);
+            }).strength(0.95))
+            .force("collide", d3.forceCollide().radius(15).iterations(2));
+        
+        simulation
+            .nodes(nodes)
+            .on("tick", ticked);
+
+        simulation.force("link")
+            .links(links);
 
         /* HANDLE NODE HOVER */
         node.on('mouseover', d => {
+            tooltip.style("visibility", "visible")
+                .html(() => {
+                    const content = `<strong>Name:</strong> <span>${d.id}</span>`+'<br>'
+                                    +`<strong>House:</strong> <span>${d.group}</span>`;
+            
+                    return content;
+              });
+
             node.transition(500).style('opacity', n => {
                 if (n === d || d.neighbors.includes(n.id)) {
                     return 1;
                 } else {
                     return 0.2;
+                }
+            });
+
+            node.transition(500).style('stroke', n => {
+                if (n === d || d.neighbors.includes(n.id)) {
+                    return 'black';
+                } else {
+                    return 'none';
                 }
             });
 
@@ -143,68 +189,34 @@ function updateChart() {
                     return 0.2;
                 }
             });
-
-            label.transition(500).style('opacity', l => {
-                if (l === d || d.neighbors.includes(l.id)) {
-                    return 1;
-                } else {
-                    return 0.2;
-                }
-            });
         });
 
         node.on('mouseout', function() {
+            tooltip.style("visibility", "hidden");
             node.transition(500).style('opacity', 1);
+            node.transition(500).style('stroke', 'none');
             link.transition(500).style('opacity', 0.2);
-            label.transition(500).style('opacity', 0.2);
         });
 
         /* HANDLES GRAPH TICKS TO DETERMINE NODES/LINKS' POSITIONS */
         function ticked() {
-            link.attr('x1', d => {
-                return d.source.x;
-            })
-                .attr('y1', d => {
-                    return d.source.y;
-                })
-                .attr('x2', d => {
-                    return d.target.x;
-                })
-                .attr('y2', d => {
-                    return d.target.y;
-                });
+            link
+                .attr('x1', d => { return d.source.x; })
+                .attr('y1', d => { return d.source.y; })
+                .attr('x2', d => { return d.target.x; })
+                .attr('y2', d => { return d.target.y; });
+
+            // let k = simulation.alpha() * 0.1;
 
             node.attr('cx', d => {
+                // let center = groups[`$${d.group}`].center;
+                // return cluster ? d.x + ((center.x - d.x) * k) : d.x;
                 return d.x;
             }).attr('cy', d => {
+                // let center = groups[`$${d.group}`].center;
+                // return cluster ? d.y + ((center.y - d.y) * k) : d.y;
                 return d.y;
             });
-
-            label
-                .attr('x', function(d) {
-                    return d.x + 8;
-                })
-                .attr('y', function(d) {
-                    return d.y + 3;
-                });
-        }
-
-        /* D3 FORCE NODE DRAGGING */
-        function dragStarted(d) {
-            if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-            d.fx = d.x;
-            d.fy = d.y;
-        }
-        
-        function dragged(d) {
-            d.fx = d3.event.x;
-            d.fy = d3.event.y;
-        }
-        
-        function dragEnded(d) {
-            if (!d3.event.active) simulation.alphaTarget(0);
-            d.fx = null;
-            d.fy = null;
         }
     });
 }
@@ -235,8 +247,48 @@ function addHouse(node) {
     sourceData.group = node.house;
 }
 
+/* DETERMINE CLUSTER CENTER */
+function determineCenter(group, groups) {
+    switch(group) {
+        case "$Stark":
+            groups[group].center = {x: widthCenter, y: heightCenter - 100};
+            break;
+        case "$Baratheon":
+            groups[group].center = {x: widthCenter - 100, y: heightCenter - 50};
+            break;
+        case "$Targaryen":
+            groups[group].center = {x: widthCenter, y: heightCenter + 100};
+            break;
+        case "$Tyrell":
+            groups[group].center = {x: widthCenter + 100, y: heightCenter - 50};
+            break;
+        case "$Tully":
+            groups[group].center = {x: widthCenter + 100, y: heightCenter + 50};
+            break;
+        case "$Greyjoy":
+            groups[group].center = {x: widthCenter - 100, y: heightCenter + 50};
+            break;
+        case "$Lannister":
+            groups[group].center = {x: widthCenter - 100, y: heightCenter};
+            break;
+        case "$Arryn":
+            groups[group].center = {x: widthCenter + 100, y: heightCenter};
+            break;
+        default:
+            groups[group].center = {x: widthCenter, y: heightCenter};
+            break;
+    }
+}
 
 /* D3 FORCE NODE DRAGGING */
+// .call(
+//     d3
+//         .drag()
+//         .on('start', dragStarted)
+//         .on('drag', dragged)
+//         .on('end', dragEnded)
+// );
+
 // function dragStarted(d) {
 //     if (!d3.event.active) simulation.alphaTarget(0.3).restart();
 //     d.fx = d.x;

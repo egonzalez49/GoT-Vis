@@ -16,19 +16,24 @@ label {
     justify-content: center;
 }
 
+.node {
+    cursor: pointer;
+    stroke-width: 2.4px;
+}
+
 .link {
     stroke: #333;
     opacity: 0.2;
 }
 
-.label {
-    color: #333;
-    font-size: 10px;
-    z-index: -1;
-    opacity: 0.4;
-}
-
-.node {
-    cursor: pointer;
-    z-index: 100;
+.tooltip {
+    position: absolute;
+    background: rgba(69, 77, 93, 0.9);
+    border-radius: 0.1rem;
+    color: #fff;
+    display: block;
+    font-size: 12px;
+    max-width: 320px;
+    padding: 0.2rem 0.4rem;
+    visibility: hidden;
 }
