@@ -2,6 +2,8 @@
 let svg = d3.select('#network');
 let container = svg.append('g');
 
+// let width = d3.select('.network-graph').attr('width');
+// let height = d3.select('.network-graph').attr('height');
 let width = +svg.attr('width');
 let height = +svg.attr('height');
 
@@ -25,7 +27,7 @@ let season = 's1';
 
 /* SEASON SELECT ONCHANGE */
 function onSeasonChanged() {
-    var select = d3.select('#seasonSelect').node();
+    let select = d3.select('#seasonSelect').node();
     let seasonSelected = select.options[select.selectedIndex].value;
     if (seasonSelected !== season) {
         season = seasonSelected;
@@ -35,8 +37,12 @@ function onSeasonChanged() {
 
 let cluster = true;
 
+document.querySelector('#clusterBtn').addEventListener('click', clusterClick);
+
 function clusterClick() {
     cluster = !cluster;
+    let btn = d3.select('#clusterBtn');
+    btn.classed('btn-selected', !cluster);
     updateChart();
 }
 

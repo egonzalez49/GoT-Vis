@@ -1,30 +1,54 @@
 @import './styles/_network.css';
 @import './styles/_dropdown.css';
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
 }
 
 html {
     position: relative;
     font-size: 10px;
     scroll-behavior: smooth;
+    font-family: 'Playfair Display', serif;
 }
 
 .btn {
+    font-size: 1.4rem;
     cursor: pointer;
-    display: inline-block;
-    margin-right: -1px;
-    padding: 1.2rem 1.5rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #fff;
     border: none;
-    background: #333;
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 0.2em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-weight: 400;
+    color:#FFFFFF;
+    background-color: #39383d;
+    text-align: center;
+    position: relative;
+}
+
+.btn:hover {
+    background-color: rgba(57, 56, 61, 0.9);
+    transition: 0.3s;
+}
+
+.btn-selected {
+    background-color:#c32436;
+}
+
+.btn-selected:hover {
+    background-color: rgba(195, 36, 54, 0.9);
+    transition: 0.3s;
 }
