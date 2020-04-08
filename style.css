@@ -1,5 +1,6 @@
 @import './styles/_network.css';
 @import './styles/_dropdown.css';
+@import './styles/_search.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
@@ -40,7 +41,7 @@ html {
 }
 
 .btn:hover {
-    background-color: rgba(57, 56, 61, 0.9);
+    background-color: rgba(57, 56, 61, 0.85);
     transition: 0.3s;
 }
 
@@ -49,6 +50,6 @@ html {
 }
 
 .btn-selected:hover {
-    background-color: rgba(195, 36, 54, 0.9);
+    background-color: rgba(195, 36, 54, 0.85);
     transition: 0.3s;
 }
