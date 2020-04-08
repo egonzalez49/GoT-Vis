@@ -1,143 +1,142 @@
-id,label
-AERON,Aeron
-AERYS,Aerys
-ALLISER_THORNE,Alliser
-AREO,Areo
-ARTHUR,Arthur
-ARTHUR_CHILD,Arthur (child)
-ARYA,Arya
-BALON,Balon
-BELICHO,Belicho
-BENJEN,Benjen
-BERIC,Beric
-BIANCA,Bianca
-BLACK_WALDER,Black Walder
-BOBONO,Bobono
-BOWEN_MARSH,Bowen
-BRAN,Bran
-BRIENNE,Brienne
-BRONN,Bronn
-BRYNDEN,Brynden
-CAMELLO,Camello
-CATELYN,Catelyn
-CERSEI,Cersei
-CLARENZO,Clarenzo
-DAARIO,Daario
-DAENERYS,Daenerys
-DAVOS,Davos
-DICKON,Dickon
-DIM_DALBA,Dim Dalba
-EDDISON_TOLLETT,Eddison
-DOM,Dom
-DORAN,Doran
-DOSH_KHALEEN_LEADER,Dosh Khaleen Leader
-DROGO,Drogo
-EDMURE,Edmure
-ELLARIA,Ellaria
-EURON,Euron
-FLYNN,Flynn
-GATINS,Gatins
-GILLY,Gilly
-GLOVER,Glover
-GREY_WORM,Grey Worm
-GUARD_CAPTAIN,Guard Captain
-HARALD,Harald
-HIGH_SPARROW,High Sparrow
-HODOR,Hodor
-HOSTER,Hoster
-HOUND,Sandor
-HOWLAND,Howland
-IZEMBARO,Izembaro
-JAIME,Jaime
-JAQEN,Jaqen
-JEOR,Jeor
-JOFFREY,Joffrey
-JON,Jon
-JORAH,Jorah
-KEVAN,Kevan
-KHAL_MORO,Khal Moro
-KINVARA,Kinvara
-KRAZNYS_MO_NAKLOZ,Kraznys
-LADY_CRANE,Lady Crane
-LANCEL,Lancel
-LEAF,Leaf
-LEM,Lem
-LHAZAREEN_WOMAN,Lhazareen Woman
-LITTLE_SAM,Little Sam
-LITTLEFINGER,Petyr
-LORAS,Loras
-LOTHAR,Lothar
-LYANNA,Lyanna
-LYANNA_MORMONT,Lyanna Mormont
-MACE,Mace
-MAESTER_AEMON,Aemon
-MAESTER_CITADEL,Citadel Maester
+id,label,house
+AERON,Aeron,Greyjoy
+AERYS,Aerys,Targaryen
+ALLISER_THORNE,Alliser,Misc
+AREO,Areo,Misc
+ARTHUR,Arthur,Misc
+ARTHUR_CHILD,Arthur (child),Misc
+ARYA,Arya,Stark
+BALON,Balon,Greyjoy
+BELICHO,Belicho,Misc
+BENJEN,Benjen,Stark
+BERIC,Beric,Misc
+BIANCA,Bianca,Misc
+BLACK_WALDER,Black Walder,Misc
+BOBONO,Bobono,Misc
+BOWEN_MARSH,Bowen,Misc
+BRAN,Bran,Stark
+BRIENNE,Brienne,Misc
+BRONN,Bronn,Misc
+BRYNDEN,Brynden,Tully
+CAMELLO,Camello,Misc
+CATELYN,Catelyn,Stark
+CERSEI,Cersei,Lannister
+CLARENZO,Clarenzo,Misc
+DAARIO,Daario,Misc
+DAENERYS,Daenerys,Targaryen
+DAVOS,Davos,Misc
+DICKON,Dickon,Misc
+DIM_DALBA,Dim Dalba,Misc
+EDDISON_TOLLETT,Eddison,Misc
+DOM,Dom,Misc
+DORAN,Doran,Martell
+DOSH_KHALEEN_LEADER,Dosh Khaleen Leader,Misc
+DROGO,Drogo,Misc
+EDMURE,Edmure,Tully
+ELLARIA,Ellaria,Misc
+EURON,Euron,Greyjoy
+FLYNN,Flynn,Baratheon
+GATINS,Gatins,Misc
+GILLY,Gilly,Misc
+GLOVER,Glover,Misc
+GREY_WORM,Grey Worm,Misc
+GUARD_CAPTAIN,Guard Captain,Misc
+HARALD,Harald,Misc
+HIGH_SPARROW,High Sparrow,Misc
+HODOR,Hodor,Misc
+HOSTER,Hoster,Tully
+HOWLAND,Howland,Misc
+IZEMBARO,Izembaro,Misc
+JAIME,Jaime,Lannister
+JAQEN,Jaqen,Misc
+JEOR,Jeor,Misc
+JOFFREY,Joffrey,Baratheon
+JON,Jon,Stark
+JORAH,Jorah,Misc
+KEVAN,Kevan,Lannister
+KHAL_MORO,Khal Moro,Misc
+KINVARA,Kinvara,Misc
+KRAZNYS_MO_NAKLOZ,Kraznys,Misc
+LADY_CRANE,Lady Crane,Misc
+LANCEL,Lancel,Lannister
+LEAF,Leaf,Misc
+LEM,Lem,Misc
+LHAZAREEN_WOMAN,Lhazareen Woman,Misc
+LITTLE_SAM,Little Sam,Misc
+LITTLEFINGER,Petyr,Misc
+LORAS,Loras,Tyrell
+LOTHAR,Lothar,Misc
+LYANNA,Lyanna,Stark
+LYANNA_MORMONT,Lyanna Mormont,Misc
+MACE,Mace,Tyrell
+MAESTER_AEMON,Aemon,Targaryen
+MAESTER_CITADEL,Citadel Maester,Misc
 MAESTER_DORNE,Dorne Maester
-MAESTER_MORMONT,Mormont Maester
-MAESTER_WOLKAN,Wolkan
-MANCE,Mance
-MANDERLY,Manderly
-MARGAERY,Margaery
-MEERA,Meera
-MELESSA,Melessa
-MELISANDRE,Melisandre
-MINISA,Minisa
-MISSANDEI,Missandei
-MORGAN,Morgan
-MOUNTAIN,Gregor
-MYRANDA,Myranda
-MYRCELLA,Myrcella
-NED,Ned
-NIGHT_KING,Night King
-NYMERIA,Nymeria
-OBARA,Obara
-OBERYN,Oberyn
-OLD_NAN,Old Nan
-OLENNA,Olenna
-OLLY,Olly
-OSHA,Osha
-OTHELL_YARWYCK,Othell
-PODRICK,Podrick
-PYCELLE,Pycelle
-QYBURN,Qyburn
-RAMSAY,Ramsay
-RANDYLL,Randyll
-RAY,Ray
-RAZDAL,Razdal
-RED_PRIEST,Red Priest
-RICKARD_KARSTARK,Rickard Karstark
-RICKARD_STARK,Rickard Stark
-RICKON,Rickon
-ROBB,Robb
-ROBERT,Robert
-ROBETT,Robett
-ROBIN,Robin
-RODRIK,Rodrik
-ROOSE_BOLTON,Roose
-SAM,Sam
-SANSA,Sansa
-SEPTA_UNELLA,Septa Unella
-SHIREEN,Shireen
-SMALLJON,Smalljon
-SON_OF_EDMURE,Edmure's Son
-SON_OFWALDA,Roose's Son
-STANNIS,Stannis
-TALLA,Talla
-THEON,Theon
-THOROS,Thoros
-THREE_EYED_RAVEN,Three Eyed Raven
-TOMMEN,Tommen
-TORMUND,Tormund
-TRYSTANE,Trystane
-TYENE,Tyene
-TYRION,Tyrion
-TYWIN,Tywin
-VALA,Vala
-VARYS,Varys
-WAIF,Waif
-WALDA,Walda
-WALDER,Walder
-WUN_WUN,Wun Wun
-YARA,Yara
-YEZZAN,Yezzan
-YOHN_ROYCE,Yohn
+MAESTER_MORMONT,Mormont Maester,Misc
+MAESTER_WOLKAN,Wolkan,Misc
+MANCE,Mance,Misc
+MANDERLY,Manderly,Misc
+MARGAERY,Margaery,Tyrell
+MEERA,Meera,Misc
+MELESSA,Melessa,Misc
+MELISANDRE,Melisandre,Misc
+MINISA,Minisa,Tully
+MISSANDEI,Missandei,Misc
+MORGAN,Morgan,Misc
+MOUNTAIN,Gregor,Misc
+MYRANDA,Myranda,Misc
+MYRCELLA,Myrcella,Baratheon
+NED,Ned,Stark
+NIGHT_KING,Night King,Misc
+NYMERIA,Nymeria,Misc
+OBARA,Obara,Martell
+OBERYN,Oberyn,Martell
+OLD_NAN,Old Nan,Misc
+OLENNA,Olenna,Tyrell
+OLLY,Olly,Misc
+OSHA,Osha,Misc
+OTHELL_YARWYCK,Othell,Misc
+PODRICK,Podrick,Misc
+PYCELLE,Pycelle,Misc
+QYBURN,Qyburn,Misc
+RAMSAY,Ramsay,Misc
+RANDYLL,Randyll,Misc
+RAY,Ray,Misc
+RAZDAL,Razdal,Misc
+RED_PRIEST,Red Priest,Misc
+RICKARD_KARSTARK,Rickard Karstark,Misc
+RICKARD_STARK,Rickard Stark,Stark
+RICKON,Rickon,Stark
+ROBB,Robb,Stark
+ROBERT,Robert,Baratheon
+ROBETT,Robett,Misc
+ROBIN,Robin,Arryn
+RODRIK,Rodrik,Misc
+ROOSE_BOLTON,Roose,Misc
+SAM,Sam,Misc
+SANSA,Sansa,Stark
+SEPTA_UNELLA,Septa Unella,Misc
+SHIREEN,Shireen,Baratheon
+SMALLJON,Smalljon,Misc
+SON_OF_EDMURE,Edmure's Son,Misc
+SON_OFWALDA,Roose's Son,Misc
+STANNIS,Stannis,Baratheon
+TALLA,Talla,Misc
+THEON,Theon,Greyjoy
+THOROS,Thoros,Misc
+THREE_EYED_RAVEN,Three Eyed Raven,Misc
+TOMMEN,Tommen,Baratheon
+TORMUND,Tormund,Misc
+TRYSTANE,Trystane,Martell
+TYENE,Tyene,Martell
+TYRION,Tyrion,Lannister
+TYWIN,Tywin,Lannister
+VALA,Vala,Misc
+VARYS,Varys,Misc
+WAIF,Waif,Misc
+WALDA,Walda,Misc
+WALDER,Walder,Misc
+WUN_WUN,Wun Wun,Misc
+YARA,Yara,Greyjoy
+YEZZAN,Yezzan,Misc
+YOHN_ROYCE,Yohn,Misc

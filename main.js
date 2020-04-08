@@ -66,7 +66,7 @@ function updateChart() {
 
         /* ADD HOUSE FROM NODES CSV TO NODE OBJECTS */
         nodesFile.forEach(node => {
-            addHouse(node);
+            addFields(node);
         });
 
         /* CREATE A D3 LIST OF NODES */
@@ -168,7 +168,7 @@ function updateChart() {
         node.on('mouseover', d => {
             tooltip.style("visibility", "visible")
                 .html(() => {
-                    const content = `<strong>Name:</strong> <span>${d.id}</span>`+'<br>'
+                    const content = `<strong>Name:</strong> <span>${d.label}</span>`+'<br>'
                                     +`<strong>House:</strong> <span>${d.group}</span>`;
             
                     return content;
@@ -250,9 +250,10 @@ function createNodes(link) {
 }
 
 /* ADD GROUP FIELD TO NODE OBJECT */
-function addHouse(node) {
+function addFields(node) {
     let sourceData = createNode(node.id);
     sourceData.group = node.house;
+    sourceData.label = node.label;
 }
 
 /* DETERMINE CLUSTER CENTER */

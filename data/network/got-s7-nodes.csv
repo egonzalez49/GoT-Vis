@@ -1,82 +1,81 @@
-id,label
-AEGON,Aegon
-AERYS,Aerys
-ALYS,Alys
-ARYA,Arya
-BALERION,Balerion
-BENJEN,Benjen
-BERIC,Beric
-BRAN,Bran
-BRIENNE,Brienne
-BRONN,Bronn
-CATELYN,Catelyn
-CERSEI,Cersei
-DAENERYS,Daenerys
-DAVOS,Davos
-DICKON,Dickon
-EDDISON_TOLLETT,Eddison
-DROGO,Drogo
-ELLARIA,Ellaria
-EURON,Euron
-GENDRY,Gendry
-GILLY,Gilly
-GREY_WORM,Grey Worm
-HARRAG,Harrag
-HIGH_SEPTON,High Septon (Aerys)
-HOT_PIE,Hot Pie
-HOUND,Sandor
-HOWLAND,Howland
-JAIME,Jaime
-JEOR,Jeor
-JOANNA,Joanna
-JOFFREY,Joffrey
-JON,Jon
-JON_ARRYN,Jon Arryn
-JORAH,Jorah
-LITTLE_SAM,Little Sam
-LITTLEFINGER,Petyr
-LYANNA,Lyanna
-LYANNA_MORMONT,Lyanna Mormont
-LYSA,Lysa
-MARGAERY,Margaery
-MARWYN,Marwin
-MEERA,Meera
-MELISANDRE,Melisandre
-MISSANDEI,Missandei
-MOUNTAIN,Gregor
-MYRCELLA,Myrcella
-NED,Ned
-NED_UMBER,Ned Umber
-NIGHT_KING,Night King
-NYMERIA,Nymeria
-OBARA,Obara
-OBERYN,Oberyn
-OLENNA,Olenna
-PODRICK,Podrick
-QHONO,Qhono
-QYBURN,Qyburn
-RAMSAY,Ramsay
-RANDYLL,Randyll
-RHAEGAR,Rhaegar
-ROBB,Robb
-ROBERT,Robert
-ROBETT,Robett
-SAM,Sam
-SANSA,Sansa
-SHIREEN,Shireen
-STANNIS,Stannis
-THEON,Theon
-THOROS,Thoros
-TOMMEN,Tommen
-TORMUND,Tormund
-TYCHO,Tycho
-TYENE,Tyene
-TYRION,Tyrion
-TYWIN,Tywin
-VARYS,Varys
-VISERYS,Viserys
-WALDER,Walder
-WHITE_WALKER,White Walker
-MAESTER_WOLKAN,Wolkan
-YARA,Yara
-YOHN_ROYCE,Yohn Royce
+id,label,house
+AEGON,Aegon,Greyjoy
+AERYS,Aerys,Targaryen
+ALYS,Alys,Misc
+ARYA,Arya,Stark
+BALERION,Balerion,Misc
+BENJEN,Benjen,Stark
+BERIC,Beric,Misc
+BRAN,Bran,Stark
+BRIENNE,Brienne,Misc
+BRONN,Bronn,Misc
+CATELYN,Catelyn,Stark
+CERSEI,Cersei,Lannister
+DAENERYS,Daenerys,Targaryen
+DAVOS,Davos,Misc
+DICKON,Dickon,Misc
+EDDISON_TOLLETT,Eddison,Misc
+DROGO,Drogo,Misc
+ELLARIA,Ellaria,Misc
+EURON,Euron,Greyjoy
+GENDRY,Gendry,Baratheon
+GILLY,Gilly,Misc
+GREY_WORM,Grey Worm,Misc
+HARRAG,Harrag,Misc
+HIGH_SEPTON,High Septon (Aerys),Misc
+HOT_PIE,Hot Pie,Misc
+HOWLAND,Howland,Misc
+JAIME,Jaime,Lannister
+JEOR,Jeor,Misc
+JOANNA,Joanna,Lannister
+JOFFREY,Joffrey,Baratheon
+JON,Jon,Stark
+JON_ARRYN,Jon Arryn,Arryn
+JORAH,Jorah,Misc
+LITTLE_SAM,Little Sam,Misc
+LITTLEFINGER,Petyr,Misc
+LYANNA,Lyanna,Stark
+LYANNA_MORMONT,Lyanna Mormont,Misc
+LYSA,Lysa,Arryn
+MARGAERY,Margaery,Tyrell
+MARWYN,Marwin,Misc
+MEERA,Meera,Misc
+MELISANDRE,Melisandre,Misc
+MISSANDEI,Missandei,Misc
+MOUNTAIN,Gregor,Misc
+MYRCELLA,Myrcella,Baratheon
+NED,Ned,Stark
+NED_UMBER,Ned Umber,Misc
+NIGHT_KING,Night King,Misc
+NYMERIA,Nymeria,Misc
+OBARA,Obara,Martell
+OBERYN,Oberyn,Martell
+OLENNA,Olenna,Tyrell
+PODRICK,Podrick,Misc
+QHONO,Qhono,Misc
+QYBURN,Qyburn,Misc
+RAMSAY,Ramsay,Misc
+RANDYLL,Randyll,Misc
+RHAEGAR,Rhaegar,Targaryen
+ROBB,Robb,Stark
+ROBERT,Robert,Baratheon
+ROBETT,Robett,Misc
+SAM,Sam,Misc
+SANSA,Sansa,Stark
+SHIREEN,Shireen,Baratheon
+STANNIS,Stannis,Baratheon
+THEON,Theon,Greyjoy
+THOROS,Thoros,Misc
+TOMMEN,Tommen,Baratheon
+TORMUND,Tormund,Misc
+TYCHO,Tycho,Misc
+TYENE,Tyene,Martell
+TYRION,Tyrion,Lannister
+TYWIN,Tywin,Lannister
+VARYS,Varys,Misc
+VISERYS,Viserys,Targaryen
+WALDER,Walder,Misc
+WHITE_WALKER,White Walker,Misc
+MAESTER_WOLKAN,Wolkan,Misc
+YARA,Yara,Greyjoy
+YOHN_ROYCE,Yohn Royce,Misc

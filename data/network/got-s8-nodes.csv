@@ -1,75 +1,74 @@
-id,label
-AEGON,Aegon
-AERYS,Aerys
-ALANNA,Alanna
-ALTON,Alton
-ALYS,Alys
-ARYA,Arya
-BERIC,Beric
-BRAN,Bran
-BRIENNE,Brienne
-BRONN,Bronn
-CATELYN,Catelyn
-CERSEI,Cersei
-CERSEIS_BABY,Cersei's Baby
-CRAYAH,Crayah
-DAENERYS,Daenerys
-DAVOS,Davos
-DICKON,Dickon
-DIRAH,Dirah
-DORNISH_PRINCE,Dornish Prince
-EDDISON_TOLLETT,Eddison
-EDMURE,Edmure
-EURON,Euron
-GENDRY,Gendry
-GILLY,Gilly
-GREY_WORM,Grey Worm
-HARRY,Harry
-HOUND,Sandor
-IRONBORN_LORD,Ironborn Lord
-JAIME,Jaime
-JOFFREY,Joffrey
-JON,Jon
-JORAH,Jorah
-LITTLE_SAM,Little Sam
-LITTLEFINGER,Petyr
-LYANNA,Lyanna
-LYANNA_MORMONT,Lyanna Mormont
-MAREI,Marei
-MARTHA,Martha
-MARWYN,Marwyn
-MELISANDRE,Melisandre
-MISSANDEI,Missandei
-MOUNTAIN,Gregor
-NED,Ned
-NED_UMBER,Ned Umber
-NIGHT_KING,Night King
-NORA,Nora
-OWEN,Owen
-PODRICK,Podrick
-QHONO,Qhono
-QYBURN,Qyburn
-RAMSAY,Ramsay
-RANDYLL,Randyll
-RHAEGAR,Rhaegar
-RIVERLANDS_LORD,Riverlands Lord
-ROBERT,Robert
-ROBIN,Robin
-SAM,Sam
-SANSA,Sansa
-SARRA,Sarra
-TEELA,Teela
-THEON,Theon
-TORMUND,Tormund
-TYRION,Tyrion
-TYWIN,Tywin
-UNSULLIED_CAPTAIN,Unsullied Captain
-VALE_LORD,Vale Lord
-VARYS,Varys
-VICKY,Vicky
-VISERYS,Viserys
-WILLA,Willa
-WILLIAM,William
-MAESTER_WOLKAN,Wolkan
-YARA,Yara
-YOHN_ROYCE,Yohn Royce
+id,label,house
+AEGON,Aegon,Greyjoy
+AERYS,Aerys,Targaryen
+ALANNA,Alanna,Misc
+ALTON,Alton,Lannister
+ALYS,Alys,Misc
+ARYA,Arya,Stark
+BERIC,Beric,Misc
+BRAN,Bran,Stark
+BRIENNE,Brienne,Misc
+BRONN,Bronn,Misc
+CATELYN,Catelyn,Stark
+CERSEI,Cersei,Lannister
+CERSEIS_BABY,Cersei's Baby,Lannister
+CRAYAH,Crayah,Misc
+DAENERYS,Daenerys,Targaryen
+DAVOS,Davos,Misc
+DICKON,Dickon,Misc
+DIRAH,Dirah,Misc
+DORNISH_PRINCE,Dornish Prince,Misc
+EDDISON_TOLLETT,Eddison,Misc
+EDMURE,Edmure,Tully
+EURON,Euron,Greyjoy
+GENDRY,Gendry,Baratheon
+GILLY,Gilly,Misc
+GREY_WORM,Grey Worm,Misc
+HARRY,Harry,Misc
+IRONBORN_LORD,Ironborn Lord,Misc
+JAIME,Jaime,Lannister
+JOFFREY,Joffrey,Baratheon
+JON,Jon,Stark
+JORAH,Jorah,Misc
+LITTLE_SAM,Little Sam,Misc
+LITTLEFINGER,Petyr,Misc
+LYANNA,Lyanna,Stark
+LYANNA_MORMONT,Lyanna Mormont,Misc
+MAREI,Marei,Misc
+MARTHA,Martha,Misc
+MARWYN,Marwyn,Misc
+MELISANDRE,Melisandre,Misc
+MISSANDEI,Missandei,Misc
+MOUNTAIN,Gregor,Misc
+NED,Ned,Stark
+NED_UMBER,Ned Umber,Misc
+NIGHT_KING,Night King,Misc
+NORA,Nora,Misc
+OWEN,Owen,Misc
+PODRICK,Podrick,Misc
+QHONO,Qhono,Misc
+QYBURN,Qyburn,Misc
+RAMSAY,Ramsay,Misc
+RANDYLL,Randyll,Misc
+RHAEGAR,Rhaegar,Targaryen
+RIVERLANDS_LORD,Riverlands Lord,Misc
+ROBERT,Robert,Baratheon
+ROBIN,Robin,Arryn
+SAM,Sam,Misc
+SANSA,Sansa,Stark
+SARRA,Sarra,Misc
+TEELA,Teela,Misc
+THEON,Theon,Greyjoy
+TORMUND,Tormund,Misc
+TYRION,Tyrion,Lannister
+TYWIN,Tywin,Lannister
+UNSULLIED_CAPTAIN,Unsullied Captain,Misc
+VALE_LORD,Vale Lord,Misc
+VARYS,Varys,Misc
+VICKY,Vicky,Misc
+VISERYS,Viserys,Targaryen
+WILLA,Willa,Misc
+WILLIAM,William,Misc
+MAESTER_WOLKAN,Wolkan,Misc
+YARA,Yara,Greyjoy
+YOHN_ROYCE,Yohn Royce,Misc
