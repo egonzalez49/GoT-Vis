@@ -37,7 +37,6 @@ let cluster = true;
 
 function clusterClick() {
     cluster = !cluster;
-    console.log(cluster);
     updateChart();
 }
 
@@ -288,6 +287,8 @@ function determineCenter(group, groups) {
             break;
     }
 }
+
+export { onSeasonChanged };
 
 /* D3 FORCE NODE DRAGGING */
 // .call(
