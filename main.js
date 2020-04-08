@@ -118,7 +118,7 @@ function updateChart() {
             .attr('class', 'node')
             .attr('r', 7)
             .style('fill', d => {
-                return color(d.group);
+                return d.color;
             });
 
         /* POSITION THE LABEL TOOLTIP */
@@ -241,7 +241,8 @@ function createNode(name) {
         (nodesData[name] = {
             id: name,
             group: '',
-            neighbors: []
+            neighbors: [],
+            color: ''
         })
     );
 }
@@ -257,8 +258,36 @@ function createNodes(link) {
 /* ADD GROUP FIELD TO NODE OBJECT */
 function addFields(node) {
     let sourceData = createNode(node.id);
+    let nodeColor = determineColor(node);
+    sourceData.color = nodeColor;
     sourceData.group = node.house;
     sourceData.label = node.label;
+}
+
+/* DETERMINE GROUP COLOR */
+function determineColor(node) {
+    switch(node.house) {
+        case "Stark":
+            return '#008cc1';
+        case "Baratheon":
+            return '#875089';
+        case "Targaryen":
+            return '#ee202d';
+        case "Tyrell":
+            return '#009c77';
+        case "Tully":
+            return '#92c83e';
+        case "Greyjoy":
+            return '#988e8c';
+        case "Lannister":
+            return '#dba50f';
+        case "Arryn":
+            return '#993861';
+        case "Martell":
+            return '#fbad17';
+        default:
+            return '#c0c6de';
+    }
 }
 
 /* DETERMINE CLUSTER CENTER */
