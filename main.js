@@ -2,13 +2,15 @@
 let svg = d3.select('#network');
 let container = svg.append('g');
 
-// let width = d3.select('.network-graph').attr('width');
-// let height = d3.select('.network-graph').attr('height');
 let width = +svg.attr('width');
 let height = +svg.attr('height');
 
 let widthCenter = width / 2;
 let heightCenter = height / 2;
+
+// For converting cumulative node strength to a smaller range 
+let strengthMin = Number.MAX_SAFE_INTEGER, strengthMax = Number.MIN_SAFE_INTEGER;
+let inMax = 100, inMin = 10;
 
 let zoom;
 
@@ -20,7 +22,7 @@ svg.call(
             container.attr('transform', d3.event.transform);
         })
     )
-    .call(zoom.transform, d3.zoomIdentity.translate(300, 200).scale(0.4))
+    .call(zoom.transform, d3.zoomIdentity.translate(300, 200).scale(0.4));
 
 let tooltip = d3.select("body")
     .append("div")
@@ -79,17 +81,9 @@ function updateChart() {
 
         /* CREATE A D3 LIST OF NODES */
         let nodes = d3.values(nodesData);
-
-        let color = d3.scaleOrdinal()
-            .domain(nodes)
-            .range(["#003f5c",
-            "#2f4b7c",
-            "#665191",
-            "#a05195",
-            "#d45087",
-            "#f95d6a",
-            "#ff7c43",
-            "#ffa600"]);
+        nodes.forEach(node => {
+            convertStrength(node);
+        })
 
         // let groups = d3.nest()
         //     .key((d) => {
@@ -109,7 +103,7 @@ function updateChart() {
             .append('line')
             .attr('class', 'link')
             .style('stroke-width', d => {
-                return Math.sqrt(d.weight / 4);
+                return Math.sqrt(d.weight);
             });
 
         let node = container
@@ -119,7 +113,9 @@ function updateChart() {
             .enter()
             .append('circle')
             .attr('class', 'node')
-            .attr('r', 7)
+            .attr('r', d => {
+                return d.strength;
+            })
             .style('fill', d => {
                 return d.color;
             });
@@ -127,11 +123,11 @@ function updateChart() {
         /* POSITION THE LABEL TOOLTIP */
         node.on('mousemove', () => {
             tooltip
-                .style("top", (d3.event.pageY-10) + "px")
-                .style("left", (d3.event.pageX+10) + "px")
+                .style("top", (d3.event.pageY - 10) + "px")
+                .style("left", (d3.event.pageX + 25) + "px")
         });
 
-        let centerScale = d3.scalePoint().padding(0.1).range([0.1, width]);
+        let centerScale = d3.scalePoint().padding(-1.5).range([0.1, width]);
         centerScale.domain(nodes.map(function(d) { return d.group; }));
 
         if (cluster) {
@@ -145,14 +141,14 @@ function updateChart() {
                         .id(d => {
                             return d.id;
                         })
-                        .distance(250)
+                        .distance(350)
                         .strength(0.2)
                 )
                 .force('charge', d3.forceManyBody().strength(-1000))
                 .force('center', d3.forceCenter(widthCenter, heightCenter))
                 .force("x", d3.forceX())
                 .force("y", d3.forceY())
-                .force("collide", d3.forceCollide().radius(6).iterations(2));
+                .force("collide", d3.forceCollide().radius(d => { return d.strength + 10; }).iterations(2));
         } else {
             const simulation = d3.forceSimulation()
                 .force("link", d3.forceLink().id(function(d) { return d.id; }).strength(0))
@@ -162,7 +158,7 @@ function updateChart() {
                 .force("x", d3.forceX(d => {
                     return centerScale(d.group);
                 }).strength(0.95))
-                .force("collide", d3.forceCollide().radius(15).iterations(2));
+                .force("collide", d3.forceCollide().radius(d => { return d.strength + 10; }).iterations(2));
             
             simulation
                 .nodes(nodes)
@@ -180,17 +176,17 @@ function updateChart() {
                                     +`<strong>House:</strong> <span>${d.group}</span>`;
             
                     return content;
-              });
+                });
 
-            node.transition(500).style('opacity', n => {
+            node.style('opacity', n => {
                 if (n === d || d.neighbors.includes(n.id)) {
-                    return 1;
+                    return 1.0;
                 } else {
                     return 0.2;
                 }
             });
 
-            node.transition(500).style('stroke', n => {
+            node.style('stroke', n => {
                 if (n === d || d.neighbors.includes(n.id)) {
                     return 'black';
                 } else {
@@ -198,9 +194,9 @@ function updateChart() {
                 }
             });
 
-            link.transition(500).style('opacity', l => {
+            link.style('opacity', l => {
                 if (d === l.source || d === l.target) {
-                    return 1;
+                    return 1.0;
                 } else {
                     return 0.2;
                 }
@@ -209,9 +205,9 @@ function updateChart() {
 
         node.on('mouseout', function() {
             tooltip.style("visibility", "hidden");
-            node.transition(500).style('opacity', 1);
-            node.transition(500).style('stroke', 'none');
-            link.transition(500).style('opacity', 0.2);
+            node.style('opacity', 1.0);
+            node.style('stroke', 'none');
+            link.style('opacity', 0.2);
         });
 
         /* HANDLES GRAPH TICKS TO DETERMINE NODES/LINKS' POSITIONS */
@@ -245,7 +241,8 @@ function createNode(name) {
             id: name,
             group: '',
             neighbors: [],
-            color: ''
+            color: '',
+            strength: 0 // cumulative link weights
         })
     );
 }
@@ -254,8 +251,18 @@ function createNode(name) {
 function createNodes(link) {
     let sourceData = createNode(link.source);
     sourceData.neighbors.push(link.target);
+    sourceData.strength += +link.weight;
+    checkMaxMin(sourceData.strength);
     let targetData = createNode(link.target);
     targetData.neighbors.push(link.source);
+    targetData.strength += +link.weight;
+    checkMaxMin(targetData.strength);
+}
+
+/* KEEP TRACK OF MIN/MAx STRENGTHS */
+function checkMaxMin(val) {
+    if (val > strengthMax) strengthMax = val;
+    if (val < strengthMin) strengthMin = val;
 }
 
 /* ADD GROUP FIELD TO NODE OBJECT */
@@ -265,6 +272,12 @@ function addFields(node) {
     sourceData.color = nodeColor;
     sourceData.group = node.house;
     sourceData.label = node.label;
+}
+
+/* CONVERT STRENGTH VALUE TO NUMBER WITHIN RANGE */
+function convertStrength(node) {
+    let val = convertNumberToRange(node.strength, strengthMin, strengthMax, inMin, inMax);
+    node.strength = val;
 }
 
 /* DETERMINE GROUP COLOR */
@@ -326,30 +339,9 @@ function determineCenter(group, groups) {
     }
 }
 
+// CODE FROM https://gist.github.com/xposedbones/75ebaef3c10060a3ee3b246166caab56
+function convertNumberToRange (val, in_min, in_max, out_min, out_max) {
+    return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 export { onSeasonChanged };
-
-/* D3 FORCE NODE DRAGGING */
-// .call(
-//     d3
-//         .drag()
-//         .on('start', dragStarted)
-//         .on('drag', dragged)
-//         .on('end', dragEnded)
-// );
-
-// function dragStarted(d) {
-//     if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-//     d.fx = d.x;
-//     d.fy = d.y;
-// }
-
-// function dragged(d) {
-//     d.fx = d3.event.x;
-//     d.fy = d3.event.y;
-// }
-
-// function dragEnded(d) {
-//     if (!d3.event.active) simulation.alphaTarget(0);
-//     d.fx = null;
-//     d.fy = null;
-// }

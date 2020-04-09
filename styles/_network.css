@@ -23,18 +23,18 @@ label {
 }
 
 .link {
-    stroke: #333;
+    stroke: #39383d;
     opacity: 0.2;
 }
 
 .tooltip {
     position: absolute;
-    background: rgba(69, 77, 93, 0.9);
+    background: rgba(57, 56, 61, 0.9);
     border-radius: 0.1rem;
     color: #fff;
     display: block;
-    font-size: 12px;
+    font-size: 1.4rem;
     max-width: 320px;
-    padding: 0.2rem 0.4rem;
+    padding: 0.5rem 0.7rem;
     visibility: hidden;
 }

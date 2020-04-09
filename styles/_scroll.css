@@ -60,8 +60,12 @@ section {
     justify-content: center;
 }
 
-.first-section, .last-section {
+.first-section {
     padding: 15em 0 0 0;
+}
+
+.last-section {
+    padding: 10em 0 15em 0;
 }
 
 .text-block {

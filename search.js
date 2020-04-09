@@ -1,12 +1,21 @@
 function handleClick(event){
     var text = document.getElementById("myVal").value.toUpperCase()
+
     var nodes = d3.selectAll('.node')
     var links = d3.selectAll('.link')
+    
+    if (text === '') {
+        nodes.style('opacity', 1); 
+        nodes.style('stroke', 'none');
+        links.style('opacity', 0.2);
+        return false;
+    }
 
     let found = false;
 
     //reset the opacities of everything
     nodes.style('opacity', 0.2); 
+    nodes.style('stroke', 'none');
     links.style('opacity', 0.2);
 
     nodes.each(function(d, i) {
@@ -16,7 +25,9 @@ function handleClick(event){
             found = true;
 
             //shade in the current node
-            node.transition(500).style('opacity', 1.0) 
+            node.style('opacity', 1.0);
+            console.log("FOUND NODE : " + node);
+            node.style('stroke', '#39383d');
             //shade in the neighboring nodes
             // d3.selectAll(".node").each(function(d0, i) {
             //     var otherNode = d3.select(this)
@@ -37,6 +48,7 @@ function handleClick(event){
     if (!found) {
         displaySnackbar();
         nodes.style('opacity', 1);
+        nodes.style('stroke', 'none');
     }
     
     return false;
