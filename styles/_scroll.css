@@ -1,0 +1,63 @@
+.highlight {
+    color: #c32436;
+}
+
+.logo-container {
+    margin-top: 15em;
+    text-align: center;
+}
+
+.logo {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.icon {
+    margin: 0 auto;
+    width: 20%;
+}
+
+.padding-top {
+    padding-top: 1.4em;
+}
+
+.padding-bottom {
+    padding-bottom: 1.4em;
+}
+
+.center-image {
+    text-align: center;
+}
+
+section {
+    position: relative;
+    padding-top: 10em;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+.first-section, .last-section {
+    padding: 15em 0 0 0;
+}
+
+.text-block {
+    margin: 0 auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    font-size: 1.4em;
+    padding: 2em 3em;
+    background-color: #f6efe5;
+    display: inline-block;
+    max-width: 40em;
+}
+
+.text-block p {
+    display: inline;
+}
+
+#pinned-trigger2, #pinned-trigger3{
+    position: absolute;
+    visibility: hidden;
+    top: 300px;
+}

@@ -10,14 +10,17 @@ let height = +svg.attr('height');
 let widthCenter = width / 2;
 let heightCenter = height / 2;
 
+let zoom;
+
 svg.call(
-    d3
+    zoom = d3
         .zoom()
         .scaleExtent([0.1, 4])
         .on('zoom', function() {
             container.attr('transform', d3.event.transform);
         })
-);
+    )
+    .call(zoom.transform, d3.zoomIdentity.translate(300, 200).scale(0.4))
 
 let tooltip = d3.select("body")
     .append("div")

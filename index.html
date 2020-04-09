@@ -8,6 +8,72 @@
     </head>
     <body>
         <div class="container">
+            <div class="logo-container">
+                <img
+                    class="logo"
+                    src="./images/logo.svg"
+                    alt="a song of data and vis"
+                />
+            </div>
+            <section id="pinned-trigger1" class="first-section">
+                <div id="pinned-element1" class="text-block">
+                    <p>Game of Thrones is an extremely popular television show based off books by author George R. R. Martin.
+                        It took the entire world by storm when it aired in April 2011 and would continue to thrive through the
+                        decade up to its finale which aired on May 2019. <br/><br/>
+                        Season 1 averaged <span class="highlight">9.3 million viewers</span>, and by season 8 the show was pulling in
+                        an average of <span class="highlight">44.2 million viewers</span>. Game of Thrones managed to win
+                        59 Emmy awards and broke records including being the most expensive television show made averaging
+                        <span class="highlight">$15 million per episode</span> in Season 8.
+                    </p>
+                    <div class="center-image padding-top">
+                        <img
+                            class="icon"
+                            src="./images/jon.svg"
+                            alt="flame and ice"
+                        />
+                    </div>
+                </div> 
+            </section>
+            <section>
+                <div id="pinned-trigger2"></div>
+                <div id="pinned-element2" class="text-block">
+                    <div class="center-image padding-bottom">
+                        <img
+                            class="icon"
+                            src="./images/daenerys.svg"
+                            alt="flame and ice"
+                        />
+                    </div>
+                    <p>So why was Game of Thrones so popular? The first season did have a <span class="highlight">$60 million budget</span>, but you can't just throw
+                        money at something and expect it to be good (Cats the movie for example). Having a multitude of fantastic actors and actresses probably helped
+                        as well. <br/> <br/> But ultimately, the books that the show was based on were already well known
+                        by 2011 having been on <span class="highlight">New York Times Best Seller List</span>. And for good reason too. George R. R. Martin
+                        had created a well-crafted and complex world with a vast array of characters each having their own separate story.
+                    </p>
+                </div>
+            </section>
+            <section>
+                <div id="pinned-trigger3"></div>
+                <div id="pinned-element3" class="text-block">
+                    <p>This all sounds good and everything, right? Wrong. There is one ultimate flaw in this. This flaw would lead
+                        Game of Thrones to have its worst rated season, season 8, which has a rating of <span class="highlight">58% (critic)</span>
+                        on RottenTomatoes, the only season to rate below 90%. The flaw is that George R. R. Martin has not finished the novels yet.<br/> <br/>
+                        In fact, he still has <span class="highlight">two planned and unreleased novels</span>
+                        in the works. So without having source material to go off of, the showrunners had to try their best to tie in all the storylines together.
+                        And we saw how they went. (We're all at home, and no one is talking about rewatching Game of Thrones.)
+                    </p>
+                    <div class="center-image padding-top">
+                        <img
+                            class="icon"
+                            src="./images/king.svg"
+                            alt="flame and ice"
+                        />
+                    </div>
+                </div> 
+            </section>
+
+            <!-- START OF VIS -->
+
             <div class="controls">
                 <div class="search-container">
                     <form name="myform" onSubmit="return handleClick()"> 
@@ -25,10 +91,6 @@
                         />
                     </form>
                 </div>
-                <!-- <form name="myform" onSubmit="return handleClick()">
-                    <input type="text" id="myVal" placeholder="Search for a character&hellip;">
-                    <input name="Submit"  type="submit" value="Search">
-                </form> -->
                 <div class="dropdown" style="width:110px;">
                     <select id="seasonSelect">
                         <option value="s1">Season 1</option>
@@ -45,14 +107,20 @@
                     Group by House
                 </a>
             </div>
+
+            <!-- START OF NETWORK GRAPH -->
+
             <div class="network-graph">
                 <svg
                     id="network"
-                    width="1400"
+                    width="1050"
                     height="650"
                     style="border: 1px solid rgba(57, 56, 61, 0.2);"
                 ></svg>
             </div>
+
+            <!-- START OF LEGEND -->
+
             <div class="legend">
                 <p class="legend-title">Legend</p>
                 <div class="legend-block-container">
@@ -65,13 +133,17 @@
                     <div class="legend-block greyjoy"><p>Greyjoy</p></div>
                     <div class="legend-block arryn"><p>Arryn</p></div>
                     <div class="legend-block tully"><p>Tully</p></div>
+                    <div class="legend-block"><p>Misc</p></div>
                 </div>
             </div>
             <div id="snackbar">No character found.</div>
         </div>
     </body>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="./main.js" type="module"></script>
     <script src="./dropdown.js" type="module"></script>
+    <script src="./scroll.js" type="module"></script>
     <script src="./search.js" type="text/javascript"></script> 
 </html>
