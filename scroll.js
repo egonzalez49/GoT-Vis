@@ -28,3 +28,11 @@ controller.addScene([
     scene2,
     scene3
 ]);
+
+window.addEventListener('scroll', function() {
+    if (window.scrollY > 50) {
+        document.querySelector('.scroll-container').style.visibility = 'hidden';
+    } else {
+        document.querySelector('.scroll-container').style.visibility = 'visible';
+    }
+});
