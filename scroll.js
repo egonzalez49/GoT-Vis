@@ -24,7 +24,6 @@ let scene4 = new ScrollMagic.Scene({
         triggerElement: "#pinned-trigger4",
         duration: 150
     })
-    .addIndicators({name: "4 (duration: 150)"})
     .setPin("#pinned-element4");
 
 controller.addScene([

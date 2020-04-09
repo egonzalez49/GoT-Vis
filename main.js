@@ -52,6 +52,7 @@ function clusterClick() {
 }
 
 let nodesData;
+let charactersInfo;
 
 updateChart();
 
@@ -59,10 +60,13 @@ updateChart();
 function updateChart() {
     Promise.all([
         d3.csv(`./data/network/got-${season}-edges.csv`),
-        d3.csv(`./data/network/got-${season}-nodes.csv`)
+        d3.csv(`./data/network/got-${season}-nodes.csv`),
+        d3.json('./data/characters.json')
     ]).then(files => {
         let links = files[0];
         let nodesFile = files[1];
+        charactersInfo = files[2].characters;
+        console.log(charactersInfo);
 
         container.selectAll('*').remove();
 
@@ -242,7 +246,8 @@ function createNode(name) {
             group: '',
             neighbors: [],
             color: '',
-            strength: 0 // cumulative link weights
+            strength: 0, // cumulative link weights
+            info: null
         })
     );
 }
@@ -272,6 +277,18 @@ function addFields(node) {
     sourceData.color = nodeColor;
     sourceData.group = node.house;
     sourceData.label = node.label;
+    addCharacterInfo(sourceData);
+}
+
+/* ADD MORE INFO ABOUT THE CHARACTER */
+function addCharacterInfo(val) {
+    if (val.info !== null) return;
+    charactersInfo.forEach(o => {
+        if (o.characterName.indexOf(val.label) === 0) {
+            val.info = o;
+        }
+    })
+    console.log(val);
 }
 
 /* CONVERT STRENGTH VALUE TO NUMBER WITHIN RANGE */

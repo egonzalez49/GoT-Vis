@@ -93,3 +93,9 @@ section {
     visibility: hidden;
     top: 300px;
 }
+
+#pinned-trigger4 {
+    position: absolute;
+    visibility: hidden;
+    top: 250px;
+}
