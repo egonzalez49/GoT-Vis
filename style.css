@@ -1,8 +1,8 @@
-@import './styles/_network.css';
-@import './styles/_dropdown.css';
-@import './styles/_search.css';
-@import './styles/_legend.css';
-@import './styles/_scroll.css';
+@import './styles/network.css';
+@import './styles/dropdown.css';
+@import './styles/search.css';
+@import './styles/legend.css';
+@import './styles/scroll.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 

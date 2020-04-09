@@ -288,7 +288,7 @@ function addCharacterInfo(val) {
             val.info = o;
         }
     })
-    console.log(val);
+    //console.log(val);
 }
 
 /* CONVERT STRENGTH VALUE TO NUMBER WITHIN RANGE */
