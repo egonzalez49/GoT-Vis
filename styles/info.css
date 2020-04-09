@@ -1,0 +1,49 @@
+.sidenav {
+    height: 50%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 25%;
+    left: 0;
+    background-color: rgba(57, 56, 61, 1);;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+    color: #fff;
+}
+
+.sidenav .closebtn {
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.panel-content {
+    padding-left: 3em;
+    padding-right: 3em;
+}
+
+.panel-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin-bottom: 3em;
+}
+
+.panel-title {
+    margin-right: 1em;
+    font-size: 1.4em;
+}
+
+.panel-text {
+    align-self: bottom;
+    font-size: 1.4em;
+    color: #dddbdc;
+}
+
+a {
+    text-decoration: none;
+}

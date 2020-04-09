@@ -214,6 +214,18 @@ function updateChart() {
             link.style('opacity', 0.2);
         });
 
+        // let cInfoName = '';
+        // node.on('click', function(d) {
+        //     let infoPanel = d3.select('#characterInfo');
+        //     if (cInfoName === d.id) {
+        //         closeNav();
+        //         cInfoName = '';
+        //     } else {
+        //         cInfoName = d.id;
+        //         setInfoPanel(infoPanel, d);
+        //     }
+        // })
+
         /* HANDLES GRAPH TICKS TO DETERMINE NODES/LINKS' POSITIONS */
         function ticked() {
             link
@@ -288,7 +300,6 @@ function addCharacterInfo(val) {
             val.info = o;
         }
     })
-    //console.log(val);
 }
 
 /* CONVERT STRENGTH VALUE TO NUMBER WITHIN RANGE */
@@ -296,6 +307,18 @@ function convertStrength(node) {
     let val = convertNumberToRange(node.strength, strengthMin, strengthMax, inMin, inMax);
     node.strength = val;
 }
+
+// function setInfoPanel(panel, node) {
+//     console.log(node);
+//     //<a href="javascript:void(0)" class="closebtn">&times;</a>
+//     panel.select('#pName').text(node.label);
+//     panel.select('#pHouse').text(node.group);
+//     if (node.info !== null) {
+//         let info = node.info;
+//         panel.select('#pImage').attr('src', info.characterImageThumb);
+//     }
+//     panel.style('width', '250px');
+// }
 
 /* DETERMINE GROUP COLOR */
 function determineColor(node) {
@@ -355,6 +378,13 @@ function determineCenter(group, groups) {
             break;
     }
 }
+
+/* CLOSE CHARACTER INFO PANEL */
+// function closeNav() {
+//     d3.select('.sidenav').style('width', 0);
+// }
+
+// d3.select('.closebtn').on('click', closeNav);
 
 // CODE FROM https://gist.github.com/xposedbones/75ebaef3c10060a3ee3b246166caab56
 function convertNumberToRange (val, in_min, in_max, out_min, out_max) {
