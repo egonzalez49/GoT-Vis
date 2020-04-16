@@ -8,7 +8,7 @@
     left: 0;
     background-color: rgba(57, 56, 61, 1);;
     overflow-x: hidden;
-    padding-top: 60px;
+    padding-top: 50px;
     transition: 0.5s;
     color: #fff;
 }
@@ -52,13 +52,17 @@
 }
 
 .panel-image {
-    margin: 1.5em 0;
+    margin-bottom: 1.2em;
     display: flex;
 }
 
 #pImage {
     margin: 0 23px;
     max-width: 144px;
+}
+
+#selectBtn {
+    margin: 0 60.3267px;
 }
 
 a {

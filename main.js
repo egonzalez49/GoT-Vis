@@ -83,21 +83,15 @@ function updateChart() {
             addFields(node);
         });
 
+        nodesFile.forEach(node => {
+            changeBFF(node);
+        });
+
         /* CREATE A D3 LIST OF NODES */
         let nodes = d3.values(nodesData);
         nodes.forEach(node => {
             convertStrength(node);
-        })
-
-        // let groups = d3.nest()
-        //     .key((d) => {
-        //         return d.group;
-        //     })
-        //     .map(nodes);
-
-        // Object.keys(groups).forEach(group => {
-        //     determineCenter(group, groups);
-        // });
+        });
         
         let link = container
             .append('g')
@@ -250,6 +244,7 @@ function createNode(name) {
             group: '',
             neighbors: [],
             color: '',
+            bff: [],
             strength: 0, // cumulative link weights
             info: null
         })
@@ -261,10 +256,28 @@ function createNodes(link) {
     let sourceData = createNode(link.source);
     sourceData.neighbors.push(link.target);
     sourceData.strength += +link.weight;
+    if (sourceData.bff.length === 0 || +link.weight > sourceData.bff[1]) {
+        sourceData.bff[0] = link.target;
+        sourceData.bff[1] = +link.weight;
+    }
     checkMaxMin(sourceData.strength);
     let targetData = createNode(link.target);
     targetData.neighbors.push(link.source);
     targetData.strength += +link.weight;
+    if (targetData.id === 'JORAH') {
+        console.log('SOURCE: ' + link.source);
+        console.log("LINK: " + link.weight);
+        console.log("BFF: " + targetData.bff[1]);
+    }
+    if (targetData.bff.length === 0 || +link.weight > targetData.bff[1]) {
+        targetData.bff[0] = link.source;
+        targetData.bff[1] = +link.weight;
+        if (targetData.id === 'JORAH') {
+            console.log('SOURCE: ' + link.source);
+            console.log("LINK: " + link.weight);
+            console.log("BFF: " + targetData.bff[1]);
+        }
+    }
     checkMaxMin(targetData.strength);
 }
 
@@ -282,6 +295,12 @@ function addFields(node) {
     sourceData.group = node.house;
     sourceData.label = node.label;
     addCharacterInfo(sourceData);
+}
+
+function changeBFF(node) {
+    let sourceData = createNode(node.id);
+    let bff = createNode(sourceData.bff[0]);
+    sourceData.bff[0] = bff.label;
 }
 
 /* ADD MORE INFO ABOUT THE CHARACTER */
@@ -306,6 +325,7 @@ function setInfoPanel(panel, node) {
     panel.select('#pName').text(node.label);
     panel.select('#pHouse').text(node.group);
     panel.select('#pLinks').text(node.neighbors.length);
+    panel.select('#pBFF').text(node.bff[0]);
     if (node.info !== null && node.info.hasOwnProperty('characterImageThumb')) {
         let info = node.info;
         panel.select('#pImage').attr('src', info.characterImageThumb);
