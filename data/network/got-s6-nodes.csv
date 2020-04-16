@@ -38,7 +38,7 @@ EURON,Euron,Greyjoy
 FLYNN,Flynn,Baratheon
 GATINS,Gatins,Misc
 GILLY,Gilly,Misc
-GLOVER,Glover,Misc
+GALBART_GLOVER,Glover,Misc
 GREY_WORM,Grey Worm,Misc
 GUARD_CAPTAIN,Guard Captain,Misc
 HARALD,Harald,Misc
@@ -56,7 +56,7 @@ JORAH,Jorah,Misc
 KEVAN,Kevan,Lannister
 KHAL_MORO,Khal Moro,Misc
 KINVARA,Kinvara,Misc
-KRAZNYS_MO_NAKLOZ,Kraznys,Misc
+KRAZNYS,Kraznys,Misc
 LADY_CRANE,Lady Crane,Misc
 LANCEL,Lancel,Lannister
 LEAF,Leaf,Misc
@@ -88,7 +88,7 @@ MYRANDA,Myranda,Misc
 MYRCELLA,Myrcella,Baratheon
 NED,Ned,Stark
 NIGHT_KING,Night King,Misc
-NYMERIA,Nymeria,Misc
+NYMERIA,Nymeria,Martell
 OBARA,Obara,Martell
 OBERYN,Oberyn,Martell
 OLD_NAN,Old Nan,Misc
@@ -139,4 +139,4 @@ WALDER,Walder,Misc
 WUN_WUN,Wun Wun,Misc
 YARA,Yara,Greyjoy
 YEZZAN,Yezzan,Misc
-YOHN_ROYCE,Yohn,Misc
+ROYCE,Yohn,Misc

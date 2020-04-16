@@ -40,19 +40,20 @@ function onSeasonChanged() {
     }
 }
 
-let cluster = true;
+let cluster = false;
 
 document.querySelector('#clusterBtn').addEventListener('click', clusterClick);
 
 function clusterClick() {
     cluster = !cluster;
     let btn = d3.select('#clusterBtn');
-    btn.classed('btn-selected', !cluster);
+    btn.classed('btn-selected', cluster);
     updateChart();
 }
 
 let nodesData;
 let charactersInfo;
+let cInfoName = '';
 
 updateChart();
 
@@ -66,7 +67,6 @@ function updateChart() {
         let links = files[0];
         let nodesFile = files[1];
         charactersInfo = files[2].characters;
-        console.log(charactersInfo);
 
         container.selectAll('*').remove();
 
@@ -131,10 +131,10 @@ function updateChart() {
                 .style("left", (d3.event.pageX + 25) + "px")
         });
 
-        let centerScale = d3.scalePoint().padding(-1.5).range([0.1, width]);
+        let centerScale = d3.scalePoint().padding(-2).range([0.1, width]);
         centerScale.domain(nodes.map(function(d) { return d.group; }));
 
-        if (cluster) {
+        if (!cluster) {
             const simulation = d3
                 .forceSimulation()
                 .nodes(nodes).on('tick', ticked)
@@ -162,7 +162,7 @@ function updateChart() {
                 .force("x", d3.forceX(d => {
                     return centerScale(d.group);
                 }).strength(0.95))
-                .force("collide", d3.forceCollide().radius(d => { return d.strength + 10; }).iterations(2));
+                .force("collide", d3.forceCollide().radius(d => { return d.strength + 1; }).iterations(2));
             
             simulation
                 .nodes(nodes)
@@ -214,17 +214,15 @@ function updateChart() {
             link.style('opacity', 0.2);
         });
 
-        // let cInfoName = '';
-        // node.on('click', function(d) {
-        //     let infoPanel = d3.select('#characterInfo');
-        //     if (cInfoName === d.id) {
-        //         closeNav();
-        //         cInfoName = '';
-        //     } else {
-        //         cInfoName = d.id;
-        //         setInfoPanel(infoPanel, d);
-        //     }
-        // })
+        node.on('click', function(d) {
+            let infoPanel = d3.select('#characterInfo');
+            if (cInfoName !== '' && cInfoName === d.id) {
+                closeNav(cInfoName);
+            } else {
+                cInfoName = d.id;
+                setInfoPanel(infoPanel, d);
+            }
+        })
 
         /* HANDLES GRAPH TICKS TO DETERMINE NODES/LINKS' POSITIONS */
         function ticked() {
@@ -234,15 +232,9 @@ function updateChart() {
                 .attr('x2', d => { return d.target.x; })
                 .attr('y2', d => { return d.target.y; });
 
-            // let k = simulation.alpha() * 0.1;
-
             node.attr('cx', d => {
-                // let center = groups[`$${d.group}`].center;
-                // return cluster ? d.x + ((center.x - d.x) * k) : d.x;
                 return d.x;
             }).attr('cy', d => {
-                // let center = groups[`$${d.group}`].center;
-                // return cluster ? d.y + ((center.y - d.y) * k) : d.y;
                 return d.y;
             });
         }
@@ -296,7 +288,7 @@ function addFields(node) {
 function addCharacterInfo(val) {
     if (val.info !== null) return;
     charactersInfo.forEach(o => {
-        if (o.characterName.indexOf(val.label) === 0) {
+        if (o.hasOwnProperty('id') && o.id === val.id) {
             val.info = o;
         }
     })
@@ -308,17 +300,29 @@ function convertStrength(node) {
     node.strength = val;
 }
 
-// function setInfoPanel(panel, node) {
-//     console.log(node);
-//     //<a href="javascript:void(0)" class="closebtn">&times;</a>
-//     panel.select('#pName').text(node.label);
-//     panel.select('#pHouse').text(node.group);
-//     if (node.info !== null) {
-//         let info = node.info;
-//         panel.select('#pImage').attr('src', info.characterImageThumb);
-//     }
-//     panel.style('width', '250px');
-// }
+function setInfoPanel(panel, node) {
+    console.log(node);
+    panel.select('.extra').style('display', 'none');
+    panel.select('#pName').text(node.label);
+    panel.select('#pHouse').text(node.group);
+    panel.select('#pLinks').text(node.neighbors.length);
+    if (node.info !== null && node.info.hasOwnProperty('characterImageThumb')) {
+        let info = node.info;
+        panel.select('#pImage').attr('src', info.characterImageThumb);
+        // panel.select('#pImage').style('visibility', 'visible');
+    } else {
+        panel.select('#pImage').attr('src', './images/unknown.jpg');
+        //panel.select('#pImage').style('visibility', 'hidden');
+    }
+
+    if (node.info !== null && node.info.hasOwnProperty('killedBy')) {
+        let row = panel.select('.extra-killed-by').style('display', 'flex');
+        row.select('.panel-text').text(node.info.killedBy[0]);
+
+    }
+
+    panel.style('width', '250px');
+}
 
 /* DETERMINE GROUP COLOR */
 function determineColor(node) {
@@ -346,45 +350,13 @@ function determineColor(node) {
     }
 }
 
-/* DETERMINE CLUSTER CENTER */
-function determineCenter(group, groups) {
-    switch(group) {
-        case "$Stark":
-            groups[group].center = {x: widthCenter, y: heightCenter - 100};
-            break;
-        case "$Baratheon":
-            groups[group].center = {x: widthCenter - 100, y: heightCenter - 50};
-            break;
-        case "$Targaryen":
-            groups[group].center = {x: widthCenter, y: heightCenter + 100};
-            break;
-        case "$Tyrell":
-            groups[group].center = {x: widthCenter + 100, y: heightCenter - 50};
-            break;
-        case "$Tully":
-            groups[group].center = {x: widthCenter + 100, y: heightCenter + 50};
-            break;
-        case "$Greyjoy":
-            groups[group].center = {x: widthCenter - 100, y: heightCenter + 50};
-            break;
-        case "$Lannister":
-            groups[group].center = {x: widthCenter - 100, y: heightCenter};
-            break;
-        case "$Arryn":
-            groups[group].center = {x: widthCenter + 100, y: heightCenter};
-            break;
-        default:
-            groups[group].center = {x: widthCenter, y: heightCenter};
-            break;
-    }
+/* CLOSE CHARACTER INFO PANEL */
+function closeNav() {
+    d3.select('.sidenav').style('width', 0);
+    cInfoName = '';
 }
 
-/* CLOSE CHARACTER INFO PANEL */
-// function closeNav() {
-//     d3.select('.sidenav').style('width', 0);
-// }
-
-// d3.select('.closebtn').on('click', closeNav);
+d3.select('.closebtn').on('click', closeNav);
 
 // CODE FROM https://gist.github.com/xposedbones/75ebaef3c10060a3ee3b246166caab56
 function convertNumberToRange (val, in_min, in_max, out_min, out_max) {

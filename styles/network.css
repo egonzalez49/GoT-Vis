@@ -24,7 +24,7 @@ label {
 
 .link {
     stroke: #39383d;
-    opacity: 0.2;
+    opacity: 0.1;
 }
 
 .tooltip {
@@ -37,4 +37,8 @@ label {
     max-width: 320px;
     padding: 0.5rem 0.7rem;
     visibility: hidden;
+}
+
+#sizeBtn {
+    margin-left: 2em;
 }

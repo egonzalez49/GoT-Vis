@@ -75,7 +75,7 @@ LITTLE_SAM,Little Sam,Misc
 LITTLEFINGER,Petyr,Misc
 LOCKE,Locke,Misc
 LOLLYS,Lollys,Misc
-LOMMY,Lommy,Misc
+LOMMY_GREENHANDS,Lommy,Misc
 LORAS,Loras,Tyrell
 LUTHOR,Luthor,Tyrell
 LYSA,Lysa,Arryn
@@ -169,5 +169,5 @@ WAYMAR_ROYCE,Waymar Royce,Misc
 WHITE_WALKER,White Walker,Misc
 YARA,Yara,Greyjoy
 YGRITTE,Ygritte,Misc
-YOHN_ROYCE,Yohn Royce,Misc
+ROYCE,Yohn Royce,Misc
 ZALA,Zala,Misc
