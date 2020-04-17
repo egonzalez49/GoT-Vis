@@ -14,9 +14,9 @@ function handleClick(event){
     let found = false;
 
     //reset the opacities of everything
-    nodes.style('opacity', 0.2); 
+    nodes.style('opacity', 0.1); 
     nodes.style('stroke', 'none');
-    links.style('opacity', 0.2);
+    links.style('opacity', 0.1);
 
     nodes.each(function(d, i) {
         var node = d3.select(this)
