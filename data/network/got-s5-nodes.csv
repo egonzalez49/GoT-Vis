@@ -90,7 +90,7 @@ ROBB,Robb,Stark
 ROBERT,Robert,Baratheon
 ROBIN,Robin,Arryn
 ROOSE_BOLTON,Roose,Misc
-ROYCE,Royce,Misc
+WAYMAR_ROYCE,Waymar Royce,Misc
 SAM,Sam,Misc
 SANSA,Sansa,Stark
 SELWYN,Selwyn,Misc
@@ -99,6 +99,7 @@ SEPTA_UNELLA,Septa Unella,Misc
 SHAE,Shae,Misc
 SHIREEN,Shireen,Baratheon
 STANNIS,Stannis,Baratheon
+STEFFON,Steffon,Baratheon
 STRONG,Strong,Misc
 TANDA,Tanda,Misc
 THEON,Theon,Greyjoy
@@ -116,4 +117,4 @@ WALDA,Walda,Misc
 WALDER,Walder,Misc
 WOLKAN,Wolkan,Misc
 OTHELL_YARWYCK,Othell,Misc
-ROYCE,Yohn,Misc
+ROYCE,Yohn Royce,Misc

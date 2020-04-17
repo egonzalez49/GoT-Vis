@@ -55,6 +55,8 @@ let nodesData;
 let charactersInfo;
 let cInfoName = '';
 
+let centerScale = d3.scalePoint().padding(-2).range([0.1, width]);
+
 updateChart();
 
 /* LOAD IN CSV DATA */
@@ -125,8 +127,8 @@ function updateChart() {
                 .style("left", (d3.event.pageX + 25) + "px")
         });
 
-        let centerScale = d3.scalePoint().padding(-2).range([0.1, width]);
-        centerScale.domain(nodes.map(function(d) { return d.group; }));
+        centerScale.domain(seasonHouses[season]);
+        //centerScale.domain(nodes.map(function(d) { return d.group; }));
 
         if (!cluster) {
             const simulation = d3
@@ -152,7 +154,7 @@ function updateChart() {
                 .force("link", d3.forceLink().id(function(d) { return d.id; }).strength(0))
                 .force("charge", d3.forceManyBody())
                 .force("y", d3.forceY(height / 2).strength(0.1))
-                .force("center", d3.forceCenter(width / 2, height / 2))
+                //.force("center", d3.forceCenter(width / 2, height / 2))
                 .force("x", d3.forceX(d => {
                     return centerScale(d.group);
                 }).strength(0.95))
@@ -180,7 +182,7 @@ function updateChart() {
                 if (n === d || d.neighbors.includes(n.id)) {
                     return 1.0;
                 } else {
-                    return 0.2;
+                    return 0.1;
                 }
             });
 
@@ -196,7 +198,7 @@ function updateChart() {
                 if (d === l.source || d === l.target) {
                     return 1.0;
                 } else {
-                    return 0.2;
+                    return 0;
                 }
             });
         });
@@ -205,7 +207,7 @@ function updateChart() {
             tooltip.style("visibility", "hidden");
             node.style('opacity', 1.0);
             node.style('stroke', 'none');
-            link.style('opacity', 0.2);
+            link.style('opacity', 0.1);
         });
 
         node.on('click', function(d) {
@@ -264,19 +266,9 @@ function createNodes(link) {
     let targetData = createNode(link.target);
     targetData.neighbors.push(link.source);
     targetData.strength += +link.weight;
-    if (targetData.id === 'JORAH') {
-        console.log('SOURCE: ' + link.source);
-        console.log("LINK: " + link.weight);
-        console.log("BFF: " + targetData.bff[1]);
-    }
     if (targetData.bff.length === 0 || +link.weight > targetData.bff[1]) {
         targetData.bff[0] = link.source;
         targetData.bff[1] = +link.weight;
-        if (targetData.id === 'JORAH') {
-            console.log('SOURCE: ' + link.source);
-            console.log("LINK: " + link.weight);
-            console.log("BFF: " + targetData.bff[1]);
-        }
     }
     checkMaxMin(targetData.strength);
 }
@@ -298,8 +290,8 @@ function addFields(node) {
 }
 
 function changeBFF(node) {
-    let sourceData = createNode(node.id);
-    let bff = createNode(sourceData.bff[0]);
+    let sourceData = nodesData[node.id];
+    let bff = createNode(sourceData.bff[0].toUpperCase());
     sourceData.bff[0] = bff.label;
 }
 
@@ -309,6 +301,7 @@ function addCharacterInfo(val) {
     charactersInfo.forEach(o => {
         if (o.hasOwnProperty('id') && o.id === val.id) {
             val.info = o;
+            if (val.id === 'MANCE') console.log(val);
         }
     })
 }
@@ -320,7 +313,6 @@ function convertStrength(node) {
 }
 
 function setInfoPanel(panel, node) {
-    console.log(node);
     panel.select('.extra').style('display', 'none');
     panel.select('#pName').text(node.label);
     panel.select('#pHouse').text(node.group);
@@ -381,6 +373,17 @@ d3.select('.closebtn').on('click', closeNav);
 // CODE FROM https://gist.github.com/xposedbones/75ebaef3c10060a3ee3b246166caab56
 function convertNumberToRange (val, in_min, in_max, out_min, out_max) {
     return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+let seasonHouses = {
+    s1: ['Misc', 'Stark', 'Targaryen', 'Lannister', 'Baratheon', 'Tyrell', 'Greyjoy', 'Arryn', 'Tully'],
+    s2: ['Misc', 'Stark', 'Targaryen', 'Lannister', 'Baratheon', 'Tyrell', 'Martell', 'Greyjoy', 'Arryn'],
+    s3: ['Misc', 'Stark', 'Targaryen', 'Lannister', 'Baratheon', 'Tyrell', 'Greyjoy', 'Arryn', 'Tully'],
+    s4: ['Misc', 'Stark', 'Targaryen', 'Lannister', 'Baratheon', 'Tyrell', 'Martell', 'Greyjoy', 'Arryn', 'Tully'],
+    s5: ['Misc', 'Stark', 'Targaryen', 'Lannister', 'Baratheon', 'Tyrell', 'Martell', 'Greyjoy', 'Arryn'],
+    s6: ['Misc', 'Stark', 'Targaryen', 'Lannister', 'Baratheon', 'Tyrell', 'Martell', 'Greyjoy', 'Arryn', 'Tully'],
+    s7: ['Misc', 'Stark', 'Targaryen', 'Lannister', 'Baratheon', 'Tyrell', 'Martell', 'Greyjoy', 'Arryn'],
+    s8: ['Misc', 'Stark', 'Targaryen', 'Lannister', 'Baratheon', 'Greyjoy', 'Arryn', 'Tully']
 }
 
 export { onSeasonChanged };
