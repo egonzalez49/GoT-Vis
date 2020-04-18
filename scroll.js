@@ -9,10 +9,10 @@ var scene = new ScrollMagic.Scene({
   .setPin("#pinned-element1"); // the element we want to pin
 
 let scene2 = new ScrollMagic.Scene({
-        triggerElement: "#pinned-trigger2", // point of execution
-        duration: 150 // pin the element for a total of 400px
+        triggerElement: "#pinned-trigger2",
+        duration: 150
     })
-    .setPin("#pinned-element2"); // the element we want to pin
+    .setPin("#pinned-element2");
 
 let scene3 = new ScrollMagic.Scene({
         triggerElement: "#pinned-trigger3",
@@ -33,6 +33,9 @@ controller.addScene([
     scene4
 ]);
 
+
+
+// Hide/show the symbol indicating to the user to scroll
 window.addEventListener('scroll', function() {
     if (window.scrollY > 50) {
         document.querySelector('.scroll-container').style.visibility = 'hidden';

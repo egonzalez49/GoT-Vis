@@ -13,35 +13,22 @@ function handleClick(event){
 
     let found = false;
 
-    //reset the opacities of everything
+    // Reset the opacities of everything
     nodes.style('opacity', 0.1); 
     nodes.style('stroke', 'none');
     links.style('opacity', 0);
 
     nodes.each(function(d, i) {
-        var node = d3.select(this)
-        //checks if the name starts with the search text
+        var node = d3.select(this);
+
+        // Checks if the name starts with the search text
         if (d.id.indexOf(text) === 0) {
             found = true;
 
-            //shade in the current node
+            // Shade in the current node
             node.style('opacity', 1.0);
             console.log("FOUND NODE : " + node);
             node.style('stroke', '#39383d');
-            //shade in the neighboring nodes
-            // d3.selectAll(".node").each(function(d0, i) {
-            //     var otherNode = d3.select(this)
-            //     if (d.neighbors.includes(d0.id)) {
-            //         otherNode.transition(500).style('opacity', 1.0)
-            //     }
-            // })
-            //shade in the adjacent lines
-            // links.each(function(d1, i) {
-            //     var link = d3.select(this)
-            //     if (d.id == d1.source.id || d.id == d1.target.id) {
-            //         link.transition(500).style('opacity', 1.0)
-            //     }
-            // })
         }
     })
 
@@ -53,6 +40,8 @@ function handleClick(event){
     
     return false;
 }
+
+
 
 /*
  * CODE FROM https://www.w3schools.com/howto/howto_js_snackbar.asp

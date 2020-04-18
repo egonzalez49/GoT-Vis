@@ -8,10 +8,11 @@ let height = +svg.attr('height');
 let widthCenter = width / 2;
 let heightCenter = height / 2;
 
-// For converting cumulative node strength to a smaller range 
+// For converting cumulative node strength to a smaller range
 let strengthMin = Number.MAX_SAFE_INTEGER, strengthMax = Number.MIN_SAFE_INTEGER;
 let inMax = 100, inMin = 10;
 
+// Allow for zooming and panning of the network graph
 let zoom;
 
 svg.call(
@@ -24,13 +25,23 @@ svg.call(
     )
     .call(zoom.transform, d3.zoomIdentity.translate(300, 200).scale(0.4));
 
+// Tooltip for character info on hover
 let tooltip = d3.select("body")
     .append("div")
     .attr("class", "tooltip");
 
+let nodesData; // Used to combine node data from multiple csv
+let charactersInfo; // Holds characters.json info
+let cInfoName = ''; // Keeps track of the current character clicked on
+
+// Used for clustering scale
+let centerScale = d3.scalePoint().padding(-2).range([0.1, width]);
+
+
+
 let season = 's1';
 
-/* SEASON SELECT ONCHANGE */
+/* SEASON SELECT DROPDOWN */
 function onSeasonChanged() {
     let select = d3.select('#seasonSelect').node();
     let seasonSelected = select.options[select.selectedIndex].value;
@@ -44,6 +55,7 @@ let cluster = false;
 
 document.querySelector('#clusterBtn').addEventListener('click', clusterClick);
 
+/* CLUSTER BUTTON CLICK */
 function clusterClick() {
     cluster = !cluster;
     let btn = d3.select('#clusterBtn');
@@ -51,15 +63,10 @@ function clusterClick() {
     updateChart();
 }
 
-let nodesData;
-let charactersInfo;
-let cInfoName = '';
 
-let centerScale = d3.scalePoint().padding(-2).range([0.1, width]);
 
 updateChart();
 
-/* LOAD IN CSV DATA */
 function updateChart() {
     Promise.all([
         d3.csv(`./data/network/got-${season}-edges.csv`),
@@ -128,8 +135,8 @@ function updateChart() {
         });
 
         centerScale.domain(seasonHouses[season]);
-        //centerScale.domain(nodes.map(function(d) { return d.group; }));
 
+        // Setup forces depending on cluster or not
         if (!cluster) {
             const simulation = d3
                 .forceSimulation()
@@ -154,7 +161,6 @@ function updateChart() {
                 .force("link", d3.forceLink().id(function(d) { return d.id; }).strength(0))
                 .force("charge", d3.forceManyBody())
                 .force("y", d3.forceY(height / 2).strength(0.1))
-                //.force("center", d3.forceCenter(width / 2, height / 2))
                 .force("x", d3.forceX(d => {
                     return centerScale(d.group);
                 }).strength(0.95))
@@ -210,6 +216,7 @@ function updateChart() {
             link.style('opacity', 0.1);
         });
 
+        /* HANDLE NODE CLICK WITH CHARACTER INFO PANEL */
         node.on('click', function(d) {
             let infoPanel = d3.select('#characterInfo');
             if (cInfoName !== '' && cInfoName === d.id) {
@@ -237,6 +244,8 @@ function updateChart() {
     });
 }
 
+
+
 /* CREATES A NEW NODE OBJECT INSIDE NODESDATA OR RETURNS EXISTING */
 function createNode(name) {
     return (
@@ -245,10 +254,10 @@ function createNode(name) {
             id: name,
             group: '',
             neighbors: [],
-            color: '',
-            bff: [],
+            color: '', // color determined by house
+            bff: [], // [0: name of character with highest link weight, 1: the link weight]
             strength: 0, // cumulative link weights
-            info: null
+            info: null // null if cannot link csv data with an object from characters.json
         })
     );
 }
@@ -258,14 +267,17 @@ function createNodes(link) {
     let sourceData = createNode(link.source);
     sourceData.neighbors.push(link.target);
     sourceData.strength += +link.weight;
+    // Determine if new bff
     if (sourceData.bff.length === 0 || +link.weight > sourceData.bff[1]) {
         sourceData.bff[0] = link.target;
         sourceData.bff[1] = +link.weight;
     }
     checkMaxMin(sourceData.strength);
+
     let targetData = createNode(link.target);
     targetData.neighbors.push(link.source);
     targetData.strength += +link.weight;
+    // Determine if new bff
     if (targetData.bff.length === 0 || +link.weight > targetData.bff[1]) {
         targetData.bff[0] = link.source;
         targetData.bff[1] = +link.weight;
@@ -289,6 +301,7 @@ function addFields(node) {
     addCharacterInfo(sourceData);
 }
 
+/* CHANGE BFF TO INCLUDE NAME INSTEAD OF CAPITALIZED ID */
 function changeBFF(node) {
     let sourceData = nodesData[node.id];
     let bff = createNode(sourceData.bff[0].toUpperCase());
@@ -312,21 +325,24 @@ function convertStrength(node) {
     node.strength = val;
 }
 
+/* SET THE INFO PANEL TO INCLUDE CURRENT CHARACTER INFO*/
 function setInfoPanel(panel, node) {
     panel.select('.extra').style('display', 'none');
+
     panel.select('#pName').text(node.label);
     panel.select('#pHouse').text(node.group);
     panel.select('#pLinks').text(node.neighbors.length);
     panel.select('#pBFF').text(node.bff[0]);
+
+    // Check to see if picture exists, otherwise default picture
     if (node.info !== null && node.info.hasOwnProperty('characterImageThumb')) {
         let info = node.info;
         panel.select('#pImage').attr('src', info.characterImageThumb);
-        // panel.select('#pImage').style('visibility', 'visible');
     } else {
         panel.select('#pImage').attr('src', './images/unknown.jpg');
-        //panel.select('#pImage').style('visibility', 'hidden');
     }
 
+    // If killed by someone, include the field
     if (node.info !== null && node.info.hasOwnProperty('killedBy')) {
         let row = panel.select('.extra-killed-by').style('display', 'flex');
         row.select('.panel-text').text(node.info.killedBy[0]);
@@ -375,6 +391,7 @@ function convertNumberToRange (val, in_min, in_max, out_min, out_max) {
     return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
+// To keep consistent clustering
 let seasonHouses = {
     s1: ['Misc', 'Stark', 'Targaryen', 'Lannister', 'Baratheon', 'Tyrell', 'Greyjoy', 'Arryn', 'Tully'],
     s2: ['Misc', 'Stark', 'Targaryen', 'Lannister', 'Baratheon', 'Tyrell', 'Martell', 'Greyjoy', 'Arryn'],
